@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Minimal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-info {
+            font-size: 13px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .contact-info .divider {
+            margin: 0 8px;
+            color: #ccc;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 18px;
+            color: #1a1a1a;
+        }
+
+        .summary {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .experience-item,
+        .education-item,
+        .project-item {
+            margin-bottom: 25px;
+        }
+
+        .item-header {
+            margin-bottom: 6px;
+        }
+
+        .item-title-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .item-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .item-date {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .item-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .item-content {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .item-content ul {
+            margin-left: 18px;
+            list-style-type: square;
+        }
+
+        .item-content li {
+            margin-bottom: 4px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-item {
+            font-size: 13px;
+            color: #444;
+            padding: 4px 0;
+        }
+
+        .skill-item::before {
+            content: '- ';
+            color: #1a1a1a;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>{{contact.name}}</h1>
+            <div class="contact-info">
+                {{#if contact.email}}{{contact.email}}{{/if}}
+                {{#if contact.phone}}
+                    {{#if contact.email}}<span class="divider">•</span>{{/if}}
+                    {{contact.phone}}
+                {{/if}}
+                {{#if contact.linkedin}}
+                    {{#if contact.email}}<span class="divider">•</span>{{/if}}
+                    {{contact.linkedin}}
+                {{/if}}
+                {{#if contact.website}}
+                    {{#if contact.email}}<span class="divider">•</span>{{/if}}
+                    {{contact.website}}
+                {{/if}}
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        {{#if summary}}
+        <div class="section">
+            <div class="section-title">Summary</div>
+            <div class="summary">{{{summary}}}</div>
+        </div>
+        {{/if}}
+
+        {{#if experience}}
+        <hr>
+        {{/if}}
+
+        <!-- Experience Section -->
+        {{#if experience}}
+        <div class="section">
+            <div class="section-title">Experience</div>
+            {{#each experience}}
+            <div class="experience-item">
+                <div class="item-header">
+                    <div class="item-title-line">
+                        <div class="item-title">{{title}}</div>
+                        <div class="item-date">{{from}} - {{to}}</div>
+                    </div>
+                    <div class="item-subtitle">{{company}}</div>
+                </div>
+                <div class="item-content">{{{html}}}</div>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if education}}
+        <hr>
+        {{/if}}
+
+        <!-- Education Section -->
+        {{#if education}}
+        <div class="section">
+            <div class="section-title">Education</div>
+            {{#each education}}
+            <div class="education-item">
+                <div class="item-header">
+                    <div class="item-title-line">
+                        <div class="item-title">{{degree}}</div>
+                        <div class="item-date">{{from}} - {{to}}</div>
+                    </div>
+                    <div class="item-subtitle">{{institution}}</div>
+                </div>
+                {{#if html}}
+                <div class="item-content">{{{html}}}</div>
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if projects}}
+        <hr>
+        {{/if}}
+
+        <!-- Projects Section -->
+        {{#if projects}}
+        <div class="section">
+            <div class="section-title">Projects</div>
+            {{#each projects}}
+            <div class="project-item">
+                <div class="item-header">
+                    <div class="item-title">{{name}}</div>
+                    {{#if description}}
+                    <div class="item-subtitle">{{description}}</div>
+                    {{/if}}
+                </div>
+                {{#if html}}
+                <div class="item-content">{{{html}}}</div>
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if skills}}
+        <hr>
+        {{/if}}
+
+        <!-- Skills Section -->
+        {{#if skills}}
+        <div class="section">
+            <div class="section-title">Skills</div>
+            <div class="skills-container">
+                {{#each skills}}
+                <div class="skill-item">{{this}}</div>
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Modern</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 0;
+        }
+
+        .sidebar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 40px 30px;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .contact-item {
+            font-size: 13px;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .skill-item {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: #667eea;
+        }
+
+        .summary {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .experience-item,
+        .education-item,
+        .project-item {
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .experience-item::before,
+        .education-item::before,
+        .project-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+
+        .item-header {
+            margin-bottom: 8px;
+        }
+
+        .item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .item-subtitle {
+            font-size: 15px;
+            color: #667eea;
+            margin-top: 3px;
+        }
+
+        .item-date {
+            font-size: 13px;
+            color: #95a5a6;
+            margin-top: 3px;
+        }
+
+        .item-content {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .item-content ul {
+            margin-left: 20px;
+        }
+
+        .item-content li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profile-section">
+                <h1>{{contact.name}}</h1>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Contact</div>
+                {{#if contact.email}}
+                <div class="contact-item">{{contact.email}}</div>
+                {{/if}}
+                {{#if contact.phone}}
+                <div class="contact-item">{{contact.phone}}</div>
+                {{/if}}
+                {{#if contact.linkedin}}
+                <div class="contact-item">{{contact.linkedin}}</div>
+                {{/if}}
+                {{#if contact.website}}
+                <div class="contact-item">{{contact.website}}</div>
+                {{/if}}
+            </div>
+
+            <!-- Skills -->
+            {{#if skills}}
+            <div class="sidebar-section">
+                <div class="sidebar-title">Skills</div>
+                {{#each skills}}
+                <div class="skill-item">{{this}}</div>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Summary Section -->
+            {{#if summary}}
+            <div class="section">
+                <div class="section-title">About Me</div>
+                <div class="summary">{{{summary}}}</div>
+            </div>
+            {{/if}}
+
+            <!-- Experience Section -->
+            {{#if experience}}
+            <div class="section">
+                <div class="section-title">Experience</div>
+                {{#each experience}}
+                <div class="experience-item">
+                    <div class="item-header">
+                        <div class="item-title">{{title}}</div>
+                        <div class="item-subtitle">{{company}}</div>
+                        <div class="item-date">{{from}} - {{to}}</div>
+                    </div>
+                    <div class="item-content">{{{html}}}</div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+
+            <!-- Education Section -->
+            {{#if education}}
+            <div class="section">
+                <div class="section-title">Education</div>
+                {{#each education}}
+                <div class="education-item">
+                    <div class="item-header">
+                        <div class="item-title">{{degree}}</div>
+                        <div class="item-subtitle">{{institution}}</div>
+                        <div class="item-date">{{from}} - {{to}}</div>
+                    </div>
+                    {{#if html}}
+                    <div class="item-content">{{{html}}}</div>
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+
+            <!-- Projects Section -->
+            {{#if projects}}
+            <div class="section">
+                <div class="section-title">Projects</div>
+                {{#each projects}}
+                <div class="project-item">
+                    <div class="item-header">
+                        <div class="item-title">{{name}}</div>
+                        {{#if description}}
+                        <div class="item-subtitle">{{description}}</div>
+                        {{/if}}
+                    </div>
+                    {{#if html}}
+                    <div class="item-content">{{{html}}}</div>
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</body>
+</html>
